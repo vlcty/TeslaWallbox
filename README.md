@@ -64,5 +64,6 @@ Firmware versions:
 
 - 21.29.1
 - 21.36.5
+- 22.7.0
 
 Only tested with the 3 phase electricity grid in the EU. Other grid systems may not work. Tesla can revoke access to the internal API at any given time.
