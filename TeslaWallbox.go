@@ -24,9 +24,9 @@
 package teslaWallbox
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
-	"encoding/json"
 )
 
 // Represents basic information
@@ -35,10 +35,10 @@ type Version struct {
 	FirmwareVersion string `json:"firmware_version"`
 
 	// Wallbox part number
-	PartNumber      string `json:"part_number"`
+	PartNumber string `json:"part_number"`
 
 	// Wallbox serial number
-	SerialNumber    string `json:"serial_number"`
+	SerialNumber string `json:"serial_number"`
 }
 
 // Represents the current vitals
