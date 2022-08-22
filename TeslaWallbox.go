@@ -168,7 +168,11 @@ func FetchVersion(ip string) (*Version, error) {
 }
 
 func fetchFromWallbox(ip, apiEndpoint string, destination interface{}) error {
-	response, responseError := http.Get(fmt.Sprintf("http://%s/api/1/%s", ip, apiEndpoint))
+	client := http.Client{
+		Timeout: 3 * time.Second,
+	}
+
+	response, responseError := client.Get(fmt.Sprintf("http://%s/api/1/%s", ip, apiEndpoint))
 
 	if responseError != nil {
 		return responseError
