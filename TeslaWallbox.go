@@ -24,6 +24,7 @@
 package teslaWallbox
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -150,6 +151,26 @@ type LifetimeStats struct {
 	ChargingTime uint `json:"charging_time_s"`
 }
 
+// Represents Wifi statistics
+type WifiStats struct {
+	// Base64 encoded SSID
+	SSID string `json:"wifi_ssid"`
+
+	SignalStrength      uint   `json:"wifi_signal_strength"`
+	RSSI                uint   `json:"wifi_rssi"`
+	SNR                 uint   `json:"wifi_snr"`
+	ConnectedToLAN      bool   `json:"wifi_connected"`
+	ConnectedToInternet bool   `json:"internet"`
+	IP                  string `json:"wifi_infra_ip"`
+	MACAddress          string `json:"wifi_mac"`
+}
+
+func (wifiStatus WifiStats) DecodeSSIDToPlainText() string {
+	decoded, _ := base64.StdEncoding.DecodeString(wifiStatus.SSID)
+
+	return string(decoded)
+}
+
 // Fetch current vital statistics from the given IP address
 func FetchVitals(ip string) (*Vitals, error) {
 	vitals := &Vitals{}
@@ -166,6 +187,12 @@ func FetchLifetimeStats(ip string) (*LifetimeStats, error) {
 func FetchVersion(ip string) (*Version, error) {
 	version := &Version{}
 	return version, fetchFromWallbox(ip, "version", version)
+}
+
+// Fetch current wifi statistics from the given IP address
+func FetchWifiStats(ip string) (*WifiStats, error) {
+	stats := &WifiStats{}
+	return stats, fetchFromWallbox(ip, "wifi_stats", stats)
 }
 
 func fetchFromWallbox(ip, apiEndpoint string, destination interface{}) error {
