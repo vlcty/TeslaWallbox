@@ -157,7 +157,7 @@ type WifiStats struct {
 	SSID string `json:"wifi_ssid"`
 
 	SignalStrength      uint   `json:"wifi_signal_strength"`
-	RSSI                uint   `json:"wifi_rssi"`
+	RSSI                int   `json:"wifi_rssi"`
 	SNR                 uint   `json:"wifi_snr"`
 	ConnectedToLAN      bool   `json:"wifi_connected"`
 	ConnectedToInternet bool   `json:"internet"`
