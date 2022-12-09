@@ -192,7 +192,7 @@ func FetchVersion(ip string) (*Version, error) {
 // Fetch current wifi statistics from the given IP address
 func FetchWifiStats(ip string) (*WifiStats, error) {
 	stats := &WifiStats{}
-	return stats, fetchFromWallbox(ip, "wifi_stats", stats)
+	return stats, fetchFromWallbox(ip, "wifi_status", stats)
 }
 
 func fetchFromWallbox(ip, apiEndpoint string, destination interface{}) error {
